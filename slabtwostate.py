@@ -20,6 +20,8 @@ m = np.array([
 
 
 def practice(N, time, startState):
+    if startState and time == 0 :
+        return 0
     # количетсво экспериментов сколько раз были в заданном состоянии
     Nt = 0
     # начальное состояние
@@ -48,7 +50,7 @@ def practice(N, time, startState):
 # время
 T = 100
 # количество экспериментов
-N = 10000
+N = 5000
 
 arrayT = []
 arrayState0 = []
