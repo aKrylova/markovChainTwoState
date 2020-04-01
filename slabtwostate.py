@@ -14,8 +14,8 @@ import matplotlib.pyplot as plt
 
 # матрица переходов
 m = np.array([
-    [0.8, 0.2],
-    [0.6, 0.4]
+    [0.2, 0.8],
+    [0.3, 0.7]
 ])
 
 
@@ -46,6 +46,19 @@ def practice(N, time, startState):
             Nt += 1
     return Nt / N
 
+def theorValue(startState) :
+    prTh = []
+    if startState == 0 :
+        prTh.append(1)
+    if startState == 1 :
+        prTh.append(0)
+
+    vectP0 = np.array([1, 0])
+
+    for k in range(0, 100) :
+        vectP0 = vectP0.dot(m)
+        prTh.append(vectP0[startState])
+    return prTh
 
 # время
 T = 100
@@ -70,5 +83,11 @@ for t in range(0, T):
 
 plt.plot(arrayT, arrayState0)
 plt.plot(arrayT, arrayState1)
+plt.xlabel('Time')
+plt.ylabel('Pr')
 plt.grid(True)
 plt.show()
+
+
+print( theorValue(0) )
+print( theorValue(1) )
