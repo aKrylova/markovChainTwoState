@@ -12,32 +12,24 @@ import numpy as np
 import random as rnd
 import matplotlib.pyplot as plt
 
-# время
-T = 100
-# количество экспериментов
-N = 10000
 # матрица переходов
 m = np.array([
-    [0.3, 0.7],
-    [0.1, 0.9]
+    [0.8, 0.2],
+    [0.6, 0.4]
 ])
 
 
-def practice(n, t, startstate):
+def practice(N, time, startState):
     # количетсво экспериментов сколько раз были в заданном состоянии
     Nt = 0
-    N = n
-    T = t
     # начальное состояние
-    setState = startstate
+    setState = startState
     # вероятности перехода из 0 в 0
     p00 = m[0][0]
     # из в 1 в 1
     p11 = m[1][1]
-    # Nt/N оценка
-    result = 0
     for n in range(0, N):
-        for t in range(0, T):
+        for t in range(0, time):
             rnum = rnd.random()
             # стартуем из 0
             if setState:
@@ -52,17 +44,25 @@ def practice(n, t, startstate):
             Nt += 1
     return Nt / N
 
+
+# время
+T = 100
+# количество экспериментов
+N = 10000
+
 arrayT = []
 arrayState0 = []
 arrayState1 = []
-startState = 0
-for t in range(0, T) :
+
+# цикл по оси x (время)
+for t in range(0, T):
     arrayT.append(t)
-    result = practice(N, T, 0)
+    result = practice(N, t, 0)
+    print('state 0 = ')
     print(result)
     arrayState0.append(result)
-    result = practice(N, T, 1)
-    # result =
+    print('state 1 = ')
+    result = practice(N, t, 1)
     arrayState1.append(result)
     print(result)
 
