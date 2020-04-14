@@ -84,9 +84,9 @@ for t in range(0, T):
     # print(result)
 
 
-plt.plot(arrayT, arrayState0, label = 'practice0')
+plt.plot(arrayT, arrayState0, label = 'practice0-1')
 # plt.plot(arrayT, arrayState1, label = 'practice1')
-plt.plot(arrayT, theorValue(vP0, T), label = 'theor')
+plt.plot(arrayT, theorValue(vP0, T), label = 'theor0-1')
 # plt.plot(arrayT, thArrayState1)
 plt.xlabel('Time')
 plt.ylabel('Pr')
