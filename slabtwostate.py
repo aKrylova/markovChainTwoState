@@ -14,23 +14,21 @@ import matplotlib.pyplot as plt
 
 # матрица переходов
 m = np.array([
-    [0.2, 0.8],
-    [0.3, 0.7]
+    [0.8, 0.2],
+    [0.6, 0.4]
 ])
 
 
 def practice(N, time, startState):
-    if startState and time == 0 :
-        return 0
-    # количетсво экспериментов сколько раз были в заданном состоянии
-    Nt = 0
-    # начальное состояние
-    setState = startState
     # вероятности перехода из 0 в 0
     p00 = m[0][0]
     # из в 1 в 1
     p11 = m[1][1]
+    inState0 = []
+    inState1 = []
+    stateRes = []
     for n in range(0, N):
+        setState = 0
         for t in range(0, time):
             rnum = rnd.random()
             # стартуем из 0
@@ -43,31 +41,35 @@ def practice(N, time, startState):
                     setState = 1
             # проверим если МЦ осталась в нужном состоянии
         if setState == startState:
-            Nt += 1
-    return Nt / N
+            inState0.append(setState)
+        else:
+            inState1.append(setState)
+    stateRes = [np.size(inState0)/N, np.size(inState1)/N]
+    return stateRes
 
-def theorValue(startState) :
+
+def theorValue(vectP0, time):
     prTh = []
-    if startState == 0 :
-        prTh.append(1)
-    if startState == 1 :
-        prTh.append(0)
+    prTh.append(np.transpose(vectP0))
 
-    vectP0 = np.array([1, 0])
-
-    for k in range(0, 100) :
+    for k in range(0, time - 1):
         vectP0 = vectP0.dot(m)
-        prTh.append(vectP0[startState])
+        prTh.append(np.transpose(vectP0))
+
     return prTh
 
 # время
-T = 100
+T = 10
 # количество экспериментов
-N = 5000
+N = 100000
 
 arrayT = []
 arrayState0 = []
 arrayState1 = []
+thArrayState0 = []
+thArrayState1 = []
+
+vP0 = np.array([1, 0])
 
 # цикл по оси x (время)
 for t in range(0, T):
@@ -76,18 +78,23 @@ for t in range(0, T):
     print('state 0 = ')
     print(result)
     arrayState0.append(result)
-    print('state 1 = ')
-    result = practice(N, t, 1)
-    arrayState1.append(result)
-    print(result)
+    # print('state 1 = ')
+    # result = practice(N, t, 1)
+    # arrayState1.append(result)
+    # print(result)
 
-plt.plot(arrayT, arrayState0)
-plt.plot(arrayT, arrayState1)
+
+plt.plot(arrayT, arrayState0, label = 'practice0')
+# plt.plot(arrayT, arrayState1, label = 'practice1')
+plt.plot(arrayT, theorValue(vP0, T), label = 'theor')
+# plt.plot(arrayT, thArrayState1)
 plt.xlabel('Time')
 plt.ylabel('Pr')
+plt.legend()
 plt.grid(True)
 plt.show()
 
+print(theorValue(vP0, T))
+# print(arrayState0)
 
-print( theorValue(0) )
-print( theorValue(1) )
+# plt.plot(arrayT, theorValue(1, T))
