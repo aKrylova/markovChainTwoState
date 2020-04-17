@@ -14,10 +14,12 @@ import matplotlib.pyplot as plt
 
 # матрица переходов
 m = np.array([
-    [0.8, 0.2],
-    [0.6, 0.4]
+    [0.1, 0.9],
+    [0.4, 0.6]
 ])
 
+
+# тест гит
 
 def practice(N, time, startState):
     # вероятности перехода из 0 в 0
@@ -61,7 +63,7 @@ def theorValue(vectP0, time):
 # время
 T = 10
 # количество экспериментов
-N = 100000
+N = 1000
 
 arrayT = []
 arrayState0 = []
