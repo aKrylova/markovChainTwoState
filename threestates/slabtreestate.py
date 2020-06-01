@@ -42,12 +42,12 @@ def practice(T, matrix):
         rnum = rnd.random()
         if(setState0):
             # переход в 1
-            if ((rnum > mt[0][0]) and (rnum <= mt[0][0] + mt[0][1])):
+            if ((rnum > mt[0][0]) and (rnum <= (mt[0][0] + mt[0][1]))):
                 setState1 = 1
                 setState0, setState2 = 0, 0
                 N_1 += 1
             # переход в 2
-            elif(rnum > mt[0][0] + mt[0][1]):
+            elif(rnum > (mt[0][0] + mt[0][1])):
                 setState2 = 1
                 setState0, setState1 = 0, 0
                 N_2 += 1
@@ -67,23 +67,23 @@ def practice(T, matrix):
                 setState0, setState1 = 0, 0
                 N_2 += 1
                 # остался в 1
-            elif((rnum >= mt[1][0]) and (rnum <= mt[1][0] + mt[1][1])):
+            elif((rnum >= mt[1][0]) and (rnum <= (mt[1][0] + mt[1][1]))):
                 setState1 = 1
                 setState0, setState2 = 0, 0
                 N_1 += 1
         elif(setState2):
-            # переход в 1
-            if(rnum > (mt[2][0] + mt[2][1])):
-                setState1 = 1
-                setState2, setState0 = 0, 0
-                N_1 += 1
             # остался в 2
-            elif((rnum >= mt[2][0]) and (rnum <= mt[2][0] + mt[2][1])):
+            if(rnum > (mt[2][0] + mt[2][1])):
                 setState2 = 1
                 setState1, setState0 = 0, 0
                 N_2 += 1
+            # переход в 1
+            elif((rnum >= mt[2][0]) and (rnum <= (mt[2][0] + mt[2][1]))):
+                setState1 = 1
+                setState2, setState0 = 0, 0
+                N_1 += 1
             # переход в 0
-            if(rnum < mt[2][0]):
+            elif(rnum < mt[2][0]):
                 setState0 = 1
                 setState1, setState2 = 0, 0
                 N_0 += 1
