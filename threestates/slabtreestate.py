@@ -17,13 +17,17 @@ m = np.array([
 T = 100000
 
 def theorValue(matrix):
+    # Ro = matrix # матрица переходов
+    # I = np.eye(3) # единичная матрица
+    # A = Ro^T - I
+    # Aa = Ro.T - I
     A = np.array([
         [matrix[0][0] - 1, matrix[1][0], matrix[2][0]],
         [matrix[0][1], matrix[1][1] - 1, matrix[2][1]],
         [1, 1, 1]
     ])
     B = np.array([0, 0, 1])
-    C = linalg.solve(A, B)
+    # C = linalg.solve(A, B)
     B = B.T
     A = linalg.inv(A)  # обратная матрица
     X = A * B
