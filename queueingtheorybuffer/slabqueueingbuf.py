@@ -25,3 +25,6 @@ Ed_theor = []  # средняя задержка (теор)
 def poisson(lmb, i):
     return (lmb ** i) / (math.factorial(i)) * (math.exp(-lmb))
 
+# практика
+# for
+

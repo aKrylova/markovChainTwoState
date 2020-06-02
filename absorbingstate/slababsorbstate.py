@@ -39,9 +39,9 @@ def practice(N, mt):
             if (i == 0):
                 if (setState0):
                     count += 1
-                if (setState1):
+                elif (setState1):
                     count += 1
-                if (setState2):
+                elif (setState2):
                     count += 1
                     break
             i += 1
