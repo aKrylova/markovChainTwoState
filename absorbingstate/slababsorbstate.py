@@ -19,7 +19,7 @@ def theorValue(matrix):
         [1 - matrix[0][0], -matrix[0][1]],
         [-matrix[1][0], 1 - matrix[1][1]]
     ])
-    B = np.array([1, 1])
+    B = np.array([1, 1]) # вектор столбец
     X = linalg.solve(A, B)
     print(X)
     return 1
