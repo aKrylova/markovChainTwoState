@@ -9,7 +9,7 @@ import pylab
 import matplotlib.pyplot as plt
 
 # размер очереди
-b = 3
+b = 4
 # время работы системы (кол-во эксперементов)
 T = 100000
 # лямбда задаются
@@ -25,6 +25,56 @@ Ed_theor = []  # средняя задержка (теор)
 def poisson(lmb, i):
     return (lmb ** i) / (math.factorial(i)) * (math.exp(-lmb))
 
-# практика
-# for
 
+# Функция генерации матрицы переходов
+def generate_matrix(b, λ):
+    matrix = np.zeros((b + 1, b + 1))
+    for i in range(b + 1):
+        matrix[0][i] = poisson(λ, i)
+    # учет погрешностей
+    if (sum(matrix[0]) != 1):
+        matrix[0][b] += 1 - sum(matrix[0])
+    for i in range(b + 1):
+        for j in range(b + 1):
+            if (j + i < b + 1 and i + 1 < b + 1):
+                if (j + 1 == b + 1 - i):
+                    matrix[i + 1][j + i - 1] += sum(matrix[0][j:b + 1])
+                else:
+                    matrix[i + 1][j + i] = matrix[0][j]
+    matrix[-1][-2] = 1
+    print(matrix)
+    return matrix
+
+
+# практика
+for ind in range(len(lambdaUser)):
+    countEn = 0
+    countEd = []
+    buf = []
+    for time in range(T):
+        # заяка
+        req = np.random.poisson(lambdaUser[ind], 1)
+        # увеличиваем количетсво заявок
+        addLen = len(buf)
+        queue = len(buf)
+        for r in range(req[0]):
+            addLen = len(buf)
+            if (addLen < b):
+                buf.append(time)
+        # очередь не пустая, обрабатываем заявку
+        if (queue != 0):
+            timeStart = buf.pop(0)
+            # time = timeEnd
+            sub = time - timeStart
+            countEd.append(sub)
+        countEn += len(buf)
+    En_model.append(countEn / T)
+    Ed_model.append(sum(countEd) / (len(countEd) + 1))
+
+pylab.plot(lambdaUser, En_model, label='model E[N]')
+print("En_model: ", En_model)
+print()
+pylab.plot(lambdaUser, Ed_model, label='model E[D]')
+print("Ed_model: ", Ed_model)
+pylab.legend(('model E[N]', 'model E[D]'))
+pylab.show()
