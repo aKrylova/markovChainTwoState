@@ -19,6 +19,7 @@ def theorValue(matrix):
         [1 - matrix[0][0], -matrix[0][1]],
         [-matrix[1][0], 1 - matrix[1][1]]
     ])
+
     B = np.array([1, 1]) # вектор столбец
     X = linalg.solve(A, B)
     print(X)
@@ -29,8 +30,8 @@ def practice(N, mt):
     # count = 0
     # N эксперементов
     for i in range(N - 1):
-        setState0 = 1  # нач сост
-        setState1 = 0
+        setState0 = 0  # нач сост
+        setState1 = 1
         setState2 = 0
         i = 0
         count = 0
