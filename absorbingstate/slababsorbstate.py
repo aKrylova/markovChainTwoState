@@ -15,13 +15,18 @@ m = np.array([
 N = 1000000
 
 def theorValue(matrix):
-    A = np.array([
-        [1 - matrix[0][0], -matrix[0][1]],
-        [-matrix[1][0], 1 - matrix[1][1]]
-    ])
-
-    B = np.array([1, 1]) # вектор столбец
-    X = linalg.solve(A, B)
+    # A = np.array([
+    #     [1 - matrix[0][0], -matrix[0][1]],
+    #     [-matrix[1][0], 1 - matrix[1][1]]
+    # ])
+    #
+    # B = np.array([1, 1]) # вектор столбец
+    # X = linalg.solve(A, B)
+    A = matrix.T - np.eye(len(matrix))
+    A[2,:] = np.array([1, 1, 1])
+    A = A.linalg.inv(A)
+    B = np.array([0, 0, 1])
+    X = A * B
     print(X)
     return 1
 
